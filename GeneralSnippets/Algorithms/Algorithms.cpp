@@ -8,17 +8,142 @@ module;
 
 module modern_cpp:algorithms;
 
+namespace Algorithms_Seminar {
+
+    void test_seminar_01() {
+
+        std::vector<int> numbers;
+        numbers.reserve(80); // <====
+
+        for (int i = 0; i != 100; ++i) {
+            numbers.push_back(2 * i);
+            std::println("Size: {} - Capacity: {}", 
+                numbers.size(), numbers.capacity());
+        }
+
+        numbers.shrink_to_fit();
+        std::println("Size: {} - Capacity: {}",
+            numbers.size(), numbers.capacity());
+
+        numbers.reserve(80);
+        std::println("Size: {} - Capacity: {}",
+            numbers.size(), numbers.capacity());
+
+    }
+
+    void test_seminar_02() {
+
+        std::vector<int> numbers;
+        numbers.resize(10);
+
+        numbers[9] = 98;
+
+        numbers.push_back(99);
+
+        numbers.resize(5);
+
+        numbers.resize(11);
+    }
+
+    void test_seminar_03()
+    {
+        std::vector<int*> numbers;
+
+        // Selbst Verantwortlich:  new, delete
+    }
+
+    void test_seminar_04()
+    {
+        std::vector<std::shared_ptr<int>> numbers;
+
+        // Selbst Verantwortlich:  new, delete
+    }
+
+    void test_seminar_10() {
+
+        std::vector<int> numbers;
+
+        numbers.push_back(1);
+        numbers.push_back(2);
+        numbers.push_back(3);
+
+        for (int i = 0; i != numbers.size(); ++i) {
+            std::print("{} ", numbers[i]);
+        }
+        std::println();
+    }
+
+    void test_seminar_11() {
+
+        std::list<int> numbers;
+
+        numbers.push_back(1);
+        numbers.push_back(2);
+        numbers.push_back(3);
+
+        std::list<int>::iterator start = numbers.begin();
+        std::list<int>::iterator ende = numbers.end();
+
+        //auto start = numbers.begin();
+        //auto ende = numbers.end();
+
+        for ( ; start != ende; ++start) {
+            std::print("{} ", *start);
+        }
+        std::println();
+    }
+
+    void test_seminar_12() {
+
+        std::vector<double> numbers;
+
+        numbers.push_back(1.5);
+        numbers.push_back(2.5);
+        numbers.push_back(3.5);
+
+        std::for_each(
+            numbers.begin(),
+            numbers.end(),
+            [] (double n) {
+                std::print("{} ", n);
+            }
+        );
+
+        std::println();
+    }
+
+    void test_seminar_13() {
+
+        std::vector<double> numbers;
+
+        numbers.push_back(1.5);
+        numbers.push_back(2.5);
+        numbers.push_back(3.5);
+
+        // for each ...
+        for ( auto n : numbers) {
+            std::print("{} ", n);
+        }
+
+        std::println();
+    }
+
+    void test_seminar() {
+        test_seminar_13();
+    }
+}
+
 namespace Algorithms {
 
     // =================================================================================
     // Global constants and types
     // =================================================================================
 
-    // static constexpr int VectorSize = 100'000'000;     // release
-    static constexpr int VectorSize = 10'000'000;         // debug
+     static constexpr int VectorSize = 100'000'000;     // release
+    //static constexpr int VectorSize = 10'000'000;         // debug
 
-    // static constexpr int ArraySize = 50'000'000;       // release
-    static constexpr int ArraySize = 10'000'000;          // debug
+     static constexpr int ArraySize = 50'000'000;       // release
+    //static constexpr int ArraySize = 10'000'000;          // debug
 
     // need array in global data space, stack isn't suited for large objects
     std::array<double, ArraySize> values;
@@ -68,7 +193,7 @@ namespace Algorithms {
 
             ScopedTimer watch{};
 
-            std::fill(
+            std::fill(           // memset // rep stos
                 values.begin(),
                 values.end(),
                 123.0
@@ -102,7 +227,7 @@ namespace Algorithms {
             std::for_each(
                 values.begin(),
                 values.end(),
-                [](auto& elem) { elem = 123.0; }
+                [] (auto& elem) { elem = 123.0; }
             );
         }
 
@@ -787,21 +912,25 @@ namespace Algorithms {
 
 void main_algorithms()
 {
+    //Algorithms_Seminar::test_seminar();
+    //return;
+
+
     // initialization of std::vector or std::array with a constant value
-    Algorithms::Initialization_Vector_Constant_Value::test_vector_constant_initialization();
+   // Algorithms::Initialization_Vector_Constant_Value::test_vector_constant_initialization();
     Algorithms::Initialization_Array_Constant_Value::test_array_constant_initialization();
 
     // initialization of std::vector or std::array with a a varying value
-    Algorithms::Initialization_Vector_Varying_Value::test_vector_varying_initialization();
-    Algorithms::Initialization_Array_Varying_Value::test_array_varying_initialization();
+    // Algorithms::Initialization_Vector_Varying_Value::test_vector_varying_initialization();
+    // Algorithms::Initialization_Array_Varying_Value::test_array_varying_initialization();
 
     // using algorithms for copying ranges (std::vector or std::array)
-    Algorithms::Copying_Vectors::test_vector_copying();
-    Algorithms::Copying_Arrays::test_array_copying();
+   //  Algorithms::Copying_Vectors::test_vector_copying();
+    //  Algorithms::Copying_Arrays::test_array_copying();
 
     // using algorithms for elementary calculations (std::vector or std::array)
-    Algorithms::Elementary_Calculations_With_Vectors::test_vector_sum_calculation();
-    Algorithms::Elementary_Calculations_With_Arrays::test_array_sum_calculation();
+   //  Algorithms::Elementary_Calculations_With_Vectors::test_vector_sum_calculation();
+   //  Algorithms::Elementary_Calculations_With_Arrays::test_array_sum_calculation();
 }
 
 // =====================================================================================

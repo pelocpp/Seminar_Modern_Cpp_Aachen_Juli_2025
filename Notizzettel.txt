@@ -51,14 +51,22 @@ Speicher:
 ToDo_Liste:
 -----------
 
-A) std::vector und reserve // capacity
-
 b) Werden die Elemente in diesem Zusammenhang kopiert oder verschoben ???
 
 C) noexcept
 
 D) emplace
 
+E) Generische Funktionen (inkl. Lambdas)
+
+
+======================================
+
+Dienstag:
+
+ == Generische Funktionen (inkl. Lambdas)
+
+ == zu Ende
 
 ======================================
 
@@ -256,7 +264,44 @@ Mit Referenz ist es ein INDIREKTER Zugriff.
 Tool: Cpp Insights
 
 
+======================================================
+
+9 => 13 => 19 => 28 => 42 => 63
+
+neuer Wert = alter Wert * 1.5;
 
 
+9 => 13 => 19 => 28 => 42 => 63
+
+Das könnte, sollte man vermeiden ....
+
+====================================
+
+STL:
+
+Sequential Container: 
+
+Assoziative Container: 
+
+STL Container
+
+STL Iteratoren
+
+STL Algorithmen
 
 
+Beobachtung:
+
+STL Container
+
+     ||
+
+STL Iteratoren
+
+     ||
+
+STL Algorithmen
+
+Beobachtung: "for each"  // Range-based for-Loop
+
+STL Container
