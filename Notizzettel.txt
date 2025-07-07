@@ -1,0 +1,262 @@
+=========================
+
+Modern C++
+
+Peter Loos
+
+Pascal, C/C++, Java, C#, JavaScript (Python) 
+
+Guten Morgen
+
+=========================
+
+12.30 ...
+
+=========================
+
+== Visual Studio 2022 
+
+== Github:   pelocpp
+
+=========================
+
+Agenda
+
+Übungen  ... 
+
+MT
+
+Weak_Ptr: Dann machen wir ihn.
+
+Templates
+
+STL: Container // std::vector // map // ..
+
+Keine Algorithmen:  std::fill, std::generate, std::transform,
+
+==> Go for STL Algorithmen
+
+a) STL Algorithmen
+
+b) Überarbeitung: std::ranges
+
+Performanz:
+
+Speicher:
+
+==> Fragen 
+
+======================================
+
+ToDo_Liste:
+-----------
+
+A) std::vector und reserve // capacity
+
+b) Werden die Elemente in diesem Zusammenhang kopiert oder verschoben ???
+
+C) noexcept
+
+D) emplace
+
+
+======================================
+
+
+
+"Heftig"
+
+b) Move-Semantik  // a) RValue-Referenz
+
+Verwende ich nicht ...
+
+
+std::string&:    LValue-Referenz (Left of an Assignment)
+
+Ab C++ 11:  Zweiten Referenz-Typus
+
+Eine Referenz (C++) ist ein Alias
+für ein anderes, benanntes Objekt:
+
+std::string&&:    RValue-Referenz (Right of an Assignment)
+
+Why ???????????????????????????????????????????
+
+Move-Semantik:
+
+Man kann mit ihrer Hilfe Objekte verschieben (C++ 11)
+und so unnütze Kopien vermeiden.
+
+Adressen:
+
+... 0B0:  Lokal am Stack // wird freigegeben
+... 270:  Ist im Vektor
+
+... 510
+
+
+Rule-of-Zero:     Yes
+//Rule-of-Three:  Yes
+//Rule-of-Five:   Better
+
+class Point
+{
+    int m_x;
+    int m_y;
+
+    std::string m_name;
+
+    //  int* m_data;  // new
+    std::shared_ptr m_data;  // new
+};
+
+// =================
+
+new // Daten am Heap
+
+Objekten, die man kopieren kann oder will
+Enthalten Daten.
+
+a) a = b;        // Keine Relevanz
+
+b) func (data);  // Keine Relevanz
+
+data calculation_data (...);
+
+c) func (  calculation_data()  );
+
+Ablauf: 
+a)  calculation_data() legt ERGEBNIS am Stack an.
+
+    Wird nach func kopiert.
+
+b) Egebnis wird nach func VERSCHOBEN.
+
+==============================================
+
+std::vector<BigData> vec;
+
+Beobachtungen:
+
+a) std::vector<T> (STL) hat mal generell 
+   eine WERT-Semantik zu Grunde liegen.
+
+b) Große Datenmengen liegen am HEAP oder
+   als Globale Variablen.
+
+c) Prinzipiell geht auch std::vector<T*>
+
+   Dann muss man das new und delete selbst verwalten.
+
+
+i) std::vector<T> mit vielen, großen Daten: 
+
+a) Wo liegt der Vektor selbst: global oder auch am Heap
+
+b) Wie groß sind die Daten im Vektor ???
+
+   Kleine Daten: std::vector<T>
+
+   Große Daten: std::vector<T*>
+
+===============================================
+
+reserve 
+
+===============================================
+
+C++:  
+
+== objekt orientierte 
+
+Stroustrup
+
+== generisch // Templates
+
+Stepanov: generische Programmierung
+
+Bibliothek: C++ STL  Standard Template Library
+
+===============================================
+
+std::string s("ABC");
+
+std::string s { "ABC" };
+
+Neuen Ansatz:   Neues Symbol: ( => {
+
+
+
+Achtung:
+
+Es gibt da auch noch eine Liste.
+
+== Einheitliche Initialisierung
+   - Uniform Initialization
+   - Brace Initialization
+
+== std::initializer_list (Listensyntax)
+
+
+Frage:
+
+rep stos    byte ptr [rdi]   oder memset ???
+
+Ich glaube, dass memset intern auf rep stos
+abgebildet wird.
+
+Frage:
+
+int- Array
+
+Vorbelegung mit 123 für alle Werte
+
+Geht das mit memset ??? 
+
+===================================================
+
+Lambda:
+
+Umgangssprachlich: eine Lambda Funktion
+
+Exakt:             ein Lambda Objekt
+
+Wie sind Lambdas in C++ integriert ???
+
+Herleitung.
+
+a) mit freier Funktion
+
+b) aufrufbares Objekt // Callable // callable Object
+
+Algorithmen // Iterator
+
+=====================================
+
+Vergleich:
+
+    static bool compare (int n1, int n2) {
+
+        int tmp = n1;
+00007FF644A04613  mov         eax,dword ptr [n1]  
+00007FF644A04619  mov         dword ptr [tmp],eax  
+
+    static bool compare (int& n1, int& n2) {
+
+        int tmp = n1;
+00007FF6FEC44614  mov         rax,qword ptr [n1]  
+00007FF6FEC4461B  mov         eax,dword ptr [rax]  
+00007FF6FEC4461D  mov         dword ptr [tmp],eax  
+
+Mit Referenz ist es ein INDIREKTER Zugriff.
+
+
+======================================================
+
+Tool: Cpp Insights
+
+
+
+
+
+
