@@ -57,13 +57,6 @@ C) noexcept
 
 D) emplace
 
-E) Generische Funktionen (inkl. Lambdas)
-
-F) Structured Binding
-
-H) Initializer_List
-
-j) explicit
 
 
 ======================================
@@ -437,4 +430,117 @@ std::vector<int> vec (10);   Size: 10 - Elemente: 0
 ===================================================
 
 Structured Binding:
+
+==================================================
+
+Ein std::tuple ist ähnlich zu einer struct
+für Schreibfaule.
+
+==================================================
+
+DTO:   Data Transfer Object   ===> std::tuple
+
+10 Ebenen  // Restful Service REST API // Web Service
+
+Interface Overkill
+
+==================================================
+
+Konstante:
+
+123
+
+123l
+
+123ll
+
+123.123f
+
+100_km
+
+100_kg
+
+100_kilogramm
+
+100_sekunden
+
+100_euro
+
+90_cent   ===> elem. Datentyp // int size_t
+
+100_euro + 90_cent
+
+0xFF0000_farbe   // ===>  class Color
+
+0xFF0000_rgb
+
+"100"_euro
+
+"14:50:0"_uhrzeit
+
+"100_euro_20_ct"_currency
+
+"100.20"_currency
+
+"100"_currency
+
+".10"_currency  
+
+"ABC"s
+
+
+=================================
+
+Lexikon:   bezeichner , +, -, *, 
+ 
+           123 124
+
+C++:   Man kann das Lexikon erweitern :)
+
+=================================
+
+operator""     Literal-Operator
+
+TYPE   operator""   bezeichner  (params);
+
+TYPE   operator""   _euro  (params);
+
+UDL:  User Defined Literal
+
+==================================
+
+https://github.com/pelocpp/cpp_clean_performant_secure/blob/master/Clean_Performant_Code/Guidelines/Guidelines_Core_Cpp.md
+
+Schlüsselwort auto: Left-to-Right Initialisierungsstil
+
+==================================
+
+Type Traits
+
+==================================
+
+std::variant:
+
+Kann Daten unterschiedlichen Typs aufnehmen,
+aber zu einem Zeitpunkt nur EIN Datum.
+
+Beispiel:
+
+Zelle /  Cell:
+
+num. Wert // Datum // Uhrzeit // Currency ...
+
+// ===============
+
+Datentypen zur Laufzeit oder Übersetzungszeit
+
+Reflection:
+
+experimental Include
+
+Java, C#: Sehr stark ausgeprägt.
+
+C++: Für Arme
+
+C++ 26: Die große Überarbeitung.
 

@@ -82,6 +82,8 @@ namespace TupleSamples {
     // =======================================================
     // same example, but using C++ 17 structured binding
 
+   //using Row = std::tuple<int, char, double, std::string>;
+
     static void test_03()
     {
         Row row1{ 10, 'A', 1.11, "Mueller" };
@@ -102,6 +104,7 @@ namespace TupleSamples {
         std::println("Value: {}", val);
         std::println("Name:  {}", name);
 
+        // for_each loop  & structured binding
         for (const auto& [id, abbr, val, name] : mySheet)
         {
             std::println("Id:    {}", id);
@@ -109,6 +112,20 @@ namespace TupleSamples {
             std::println("Value: {}", val);
             std::println("Name:  {}", name);
         }
+
+        std::for_each(
+            mySheet.begin(),
+            mySheet.end(),
+            [] (const auto& elem) {
+
+                const auto& [id, abbr, val, name] = elem;
+            
+                std::println("Id:    {}", id);
+                std::println("Abbr:  {}", abbr);
+                std::println("Value: {}", val);
+                std::println("Name:  {}", name);
+            }
+        );
     }
 
     static void test_04()
@@ -133,7 +150,7 @@ namespace TupleSamples {
 
         // or (note: std::ignore)
         // 
-        // std::tie(id, std::ignore, val, name) = mySheet[0];
+        std::tie(id, std::ignore, val, name) = mySheet[0];
 
         std::println("Id:    {}", id);
         std::println("Abbr:  {}", abbr);

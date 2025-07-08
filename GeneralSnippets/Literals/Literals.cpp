@@ -37,12 +37,16 @@ namespace Literals_Color_Runtime {
         friend std::ostream& operator<< (std::ostream&, const Color&);
 
     private:
-        uint8_t m_r;
+        uint8_t m_r;  // 0 .. 255
         uint8_t m_g;
         uint8_t m_b;
 
     public:
         Color() : m_r{}, m_g{}, m_b{} {}
+
+        Color(const Color& other)
+            : m_r{ other .m_r}, m_g{ other .m_g}, m_b{ other .m_b }
+        {}
 
         Color(uint8_t r, uint8_t g, uint8_t b)
             : m_r{ r }, m_g{ g }, m_b{ b } {}
@@ -58,13 +62,23 @@ namespace Literals_Color_Runtime {
         return os;
     }
 
+    // long
+    // long int 
+
+    // long long
+    // long long int
+
+
     // literal operator ("cooked" version)
-    static Color operator"" _rgb(unsigned long long int value) {
+    static auto operator"" _rgb (unsigned long long value) {
 
         if (value > 0xFFFFFF) {
             throw std::runtime_error("literal too large");
         }
 
+        // 0xFF0000;
+
+        // Low-Level C Programming
         uint8_t r{ static_cast<uint8_t>((value & 0x00FF0000) >> 16) };
         uint8_t g{ static_cast<uint8_t>((value & 0x0000FF00) >> 8) };
         uint8_t b{ static_cast<uint8_t>((value & 0x000000FF) >> 0) };
@@ -96,8 +110,29 @@ namespace Literals_Color_Runtime {
 
     static void test_02() {
 
-        Color red{ 0xFF0000_rgb };
+        // Ästheten
+        auto a = 123;
+        auto b = std::vector<int>{ 1, 2, 3 };
+        auto c = std::string{ "ABC" };
+        auto d = 0xFF0000_rgb;
+
+        auto a1 { 123 };
+        auto b1 { std::vector<int>{ 1, 2, 3 } };
+        auto c1 { std::string{ "ABC" } };
+        auto d1 { 0xFF0000_rgb };
+        // ....
+
+        std::cout << 0xFF0000_rgb;
+
+        // Wenn das OHNE Objekt gehen soll:
+        // Manipulatoren std::endl;
+
+        // auto z;
+
+        Color red{ 0x1FF0000_rgb };
         std::cout << red << std::endl;
+
+     //   int n = 1111111111111111111111111111111111111111111111111111;
 
         Color magenta{ 0xFF00FF_rgb };
         std::cout << magenta << std::endl;
@@ -156,11 +191,13 @@ namespace Literals_Color_CompileTime {
     }
 
     // literal operator ("cooked" version)
-    static constexpr Color operator"" _rgb(unsigned long long int value) {
+    static constexpr Color operator"" _rgb(const unsigned long long int value) {
 
         if (value > 0xFFFFFF) {
             throw std::logic_error("literal too large");
         }
+
+       // static_assert (value > 0xFFFFFF);
 
         uint8_t r{ static_cast<uint8_t>((value & 0x00FF0000) >> 16) };
         uint8_t g{ static_cast<uint8_t>((value & 0x0000FF00) >> 8) };
@@ -259,14 +296,14 @@ namespace Literals_Color_CompileTime {
     static void test_03_with_errors() {
 
         // value outside rgb range
-        // constexpr Color col1{ 0x1FFFFFF_rgb };
+       // constexpr Color col1{ 0x1FFFFFF_rgb };
 
         // illegal hexadecimal digit
         // constexpr Color col2{ "0x00GG00"_rgb };
     }
 }
 
-void main_literals()
+void main_literals() 
 {
     using namespace Literals_With_Separators;
     test_01();

@@ -17,6 +17,16 @@ namespace StructuredBinding {
         return result;
     }
 
+    static std::pair<int, int> frage()
+    {
+        return { 123, 567 };
+    }
+
+    static auto frage2()
+    {
+        return std::pair<int, int>{ 123, 567 };
+    }
+
     static void test_01()
     {
         auto result{ divide_remainder(16, 3) };
@@ -26,20 +36,35 @@ namespace StructuredBinding {
         );
     }
 
+    static void test_frage()
+    {
+        std::pair<int, std::string> p{123, "ABC"};
+
+        const auto& [wert, zeichenkette] = p;
+
+        // wert = 456;
+    }
+
+
+
+
     static void test_02()
     {
         auto [quotient, remainder] { divide_remainder(20, 3) };
 
-        std::println("16 / 3 is {} with a remainder of {}", quotient, remainder);
+        std::println("16 / 3 is {} with a remainder of {}", 
+            quotient, remainder);
     }
 
     static void test_03()
     {
         int arr[] { 123, 456, 789 };
 
-        auto [a, b, c] { arr };
+        auto& [a, b, c] { arr };
 
-        std::println("{}, {}, {}", a, b, c);
+        a = 999;
+
+        std::println("{}, {}, {}", arr[0], b, c);
     }
 
     static void test_04()
@@ -89,7 +114,8 @@ namespace StructuredBinding {
 
         // with structured binding
         Point p2 { 10, 20 };
-        auto [x, y] { p2 };
+
+        auto [x, y] = p2;
 
         std::println("X Coordinate : {}", x);
         std::println("Y Coordinate : {}", y);
@@ -144,15 +170,16 @@ namespace StructuredBinding {
 void main_structured_binding()
 {
     using namespace StructuredBinding;
-    test_01();
-    test_02();
+    test_frage();
+    //test_01();
+    //test_02();
     test_03();
-    test_04();
-    test_05();
-    test_06();
-    test_07();
-    test_08();
-    test_09();
+    //test_04();
+    //test_05();
+    //test_06();
+    //test_07();
+    //test_08();
+    //test_09();
 }
 
 // =====================================================================================

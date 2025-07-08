@@ -19,6 +19,24 @@ module;
 
 module modern_cpp:const_expr;
 
+namespace TestLambda {
+
+    void test()
+    {
+        auto l1 = []() {};
+
+        []() {} ();
+
+        auto l2 = []() { return 123; };
+
+        constexpr auto l3 = []() { return 123; } ();
+    
+        constexpr auto n = 123;
+
+        constexpr auto l4 = [] (int n, int m) { return n+m; } (11, 12);
+    }
+}
+
 constexpr uint8_t MY_POLYNOM = 0x07;
 constexpr int TABLE_SIZE = 256;
 

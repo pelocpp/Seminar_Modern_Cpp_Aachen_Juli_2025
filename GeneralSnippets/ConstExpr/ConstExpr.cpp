@@ -6,7 +6,7 @@ module modern_cpp:const_expr;
 
 namespace ConstExprComplex {
 
-    class Complex
+    class Complex 
     {
     private:
         float m_real;
@@ -66,7 +66,7 @@ namespace ConstExprDynamicData {
 
     static void testDynamicData()
     {
-        constexpr int sum = naiveSum(10);
+        constexpr int sum = naiveSum(5);
         std::println("Sum from 1 up to 10: {}", sum);
     }
 }
