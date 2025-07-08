@@ -59,6 +59,12 @@ D) emplace
 
 E) Generische Funktionen (inkl. Lambdas)
 
+F) Structured Binding
+
+H) Initializer_List
+
+j) explicit
+
 
 ======================================
 
@@ -66,7 +72,9 @@ Dienstag:
 
  == Generische Funktionen (inkl. Lambdas)
 
- == zu Ende
+ == Algorithmen zu Ende
+
+ == Initializer_List
 
 ======================================
 
@@ -305,3 +313,128 @@ STL Algorithmen
 Beobachtung: "for each"  // Range-based for-Loop
 
 STL Container
+
+==============================================
+
+STL Algorithmen:
+
+Bei Kopieren, Transformieren:
+
+==> Ziel:
+
+a) push_back ans Ende angefügt
+
+b) operator= an der jeweiligen Stelle zugewiesen.
+
+   Voreinstellung.
+
+Wie gelange ich zu a).
+
+==============================================
+
+Smart Pointer:
+
+std::shared_ptr
+
+std::weak_ptr:     Verwenden wir nicht :)
+
+
+std::shared_ptr: Der funktioniert nicht immer ???
+
+i)  std::weak_ptr
+
+ii) Whyyyyyyyyyyyyyyyyyyyyyyyy: Was ist das Problem ???
+
+
+======================================
+
+Observer Pattern:
+
+a) Objekt mit Zustand, der sich ändert und den man
+   beobachten möchte: Ereignis Quelle
+
+b) Es gibt Beobachter, die sich für
+   Änderungen des Zustands der Ereignis Quelle interessieren.
+
+c) Um beobachten zu können, müssen sich Beobachter
+   an der Ereignis Quelle anmelden.
+
+d) Beobachter werden in der Ereignis Quelle augehoben (Liste) 
+
+I)  Beobachter kennen die Ereignis Quelle.
+II) Eine Ereignis Quelle kennt Beobachter (anmelden).
+
+Fragen zur Umsetzung:
+=====================
+
+Ereignis Quelle:  std::shared_ptr.
+
+Beobachter:       std::shared_ptr.
+
+In der Ereignis Quelle gibt es eine Liste
+der Beobachter:
+
+std::list<std::weak_ptr> m_observers;
+
+Folge:
+
+Ein Ereignis tritt ein:
+
+==> Alle Beobachter zu benachrichtigen:
+
+m_observers[i].lock()  => std::shared_ptr
+
+a) std::shared_ptr: Is Empty => Nix zu tun
+b) std::shared_ptr: Is NOT Empty => Kann Rückruf erfolgen.
+
+===========================================
+
+Nehme ich prinzipiell in meiner Anwendung
+einen std::shared_ptr oder einen std::weak_ptr ???
+
+A) Noch besser: Ginge std::unique_ptr !
+
+B) Einfacher im Umgang // rumschieben .....
+
+C) std::shared_ptr nur dann, wenn ich GRÜNDE
+   für den Besitz habe.
+
+D) So oft es geht: std::weak_ptr.
+
+   i)  KEIN Besitz.
+   ii) Wenn Zugang zum Objekt nicht mehr möglich: 
+       Ist von der SW beherrschbar.
+
+       Visualisierung: ste::weak_ptr
+
+===================================================
+
+std::vector<int>               ==> HEAP (new / delete)
+
+std::initializer_list<int>     ==> STACK
+
+Why ?????? ==> PERFORMANZ
+
+===================================================
+
+PERFORMANZ:
+
+std::vector<int>               ==> HEAP (new / delete)
+std::initializer_list<int>     ==> STACK
+
+std::string
+std::string_view
+
+std::vector<int> 
+std::span<int>
+
+===================================================
+
+std::vector<int> vec { 10 }; Size: 1, Elem: 10
+
+std::vector<int> vec (10);   Size: 10 - Elemente: 0
+
+===================================================
+
+Structured Binding:
+

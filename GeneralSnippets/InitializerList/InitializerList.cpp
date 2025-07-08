@@ -4,10 +4,43 @@
 
 module modern_cpp:initializer_list;
 
+
+namespace Frage_Ctor
+{
+    class Point {
+    public:
+        // c'tors
+        Point() : Point{ 0.0, 0.0, ""} {}
+
+        //Point(double x, double y, const std::string& s)
+        //    : m_x{ x }, m_y{ y }, m_s { s } // Kopier-Konstruktor
+        //{}
+
+        // vs:
+
+        Point(double x, double y, std::string s)
+        {
+            m_x = x;
+            m_y = y;
+            m_s = s;  // Standard-C'tor und operator=
+        }
+
+        // getter
+        double X() const { return m_x; }
+        double Y() const { return m_y; }
+
+    private:
+        double m_x;
+        double m_y;
+
+        std::string m_s;
+    };
+}
+
 namespace InitializerList {
 
     // function using std::initializer_list
-    static int adder (std::initializer_list<int> list)
+    static int adder (const std::initializer_list<int>& list)
     {
         int result{};
 
@@ -34,7 +67,8 @@ namespace InitializerList {
     static void test_01() {
 
         // testing functions expecting lists in function call
-        int sum = adder({ 1, 2, 3, 4, 5 });
+        int sum = adder({ 1, 2, 3, 4, 5, 6, 7, 8 });
+
         std::cout << sum << std::endl;
 
         print({ 1, 2, 3, 4, 5 });

@@ -20,7 +20,7 @@ int main()
     try
     {
         //main_accumulate();
-        main_algorithms();
+       // main_algorithms();
         //main_allocator();
         //main_any();
         //main_argument_dependent_name_lookup();
@@ -53,8 +53,8 @@ int main()
         //main_functional_programming();
         //main_functional_programming_alternate();
         //main_generate();
-        //main_generic_functions();
-        //main_initializer_list();
+       // main_generic_functions();
+       // main_initializer_list();
         //main_input_output_streams();  
         //main_invoke();
         //main_lambdas();
@@ -79,7 +79,7 @@ int main()
         //main_regular_expressions();
        // main_rvalue_lvalue();
         //main_sfinae();
-        //main_shared_ptr();
+       // main_shared_ptr();
         //main_source_location();
         //main_sso();
         //main_static_assert();
@@ -92,7 +92,7 @@ int main()
         //main_templates_template_parameter_02();
         //main_templates_specialization();
         //main_to_underlying();
-        //main_transform();
+       // main_transform();
         //main_tuple(); 
         //main_two_phase_name_lookup();
         //main_type_erasure();
@@ -105,9 +105,9 @@ int main()
         //main_variant();
         //main_virtual_base_class_destructor();
         //main_virtual_override_final();
-        //main_weak_pointer();
+      //  main_weak_pointer();
 
-        //main_exercises();
+      //  main_exercises();
     }
     catch (const std::exception& ex) {
         std::println("Exception: {}", ex.what());

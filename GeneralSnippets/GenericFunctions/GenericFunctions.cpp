@@ -205,10 +205,13 @@ namespace GenericLambdasExample {
 
     static void test_01()
     {
-        // define a generic lambda
-        auto isGreaterThanFifty = [](const auto& n) { return n > 50; };
+        //  std::vector<int> intValues{ 44, 65, 22, 77, 2 };
+        std::vector<int> intValues{ 44, 22 };
 
-        std::vector<int> intValues{ 44, 65, 22, 77, 2 };
+        // define a generic lambda
+        auto isGreaterThanFifty = [](const auto& n) {
+            return n > 50;
+        };
 
         // use generic lambda with a vector of integers
         auto it1 = std::find_if(
@@ -273,11 +276,17 @@ namespace GenericLambdasExample {
 namespace GenericFunctionsExample {
 
     // define a generic function (top-level (!))
-    static auto isGreaterThanFifty(const auto& n) { return n > 50; };
+    static auto isGreaterThanFifty(const auto& n) { 
+        return n > 50; 
+    };
 
     static void test_01()
     {
         std::vector<int> intValues{ 44, 65, 22, 77, 2 };
+
+        //auto isGreaterThanFifty(const auto& n) {
+        //    return n > 50;
+        //};
 
         // use generic function with a vector of integers
         auto it1{ std::find_if(
@@ -288,6 +297,14 @@ namespace GenericFunctionsExample {
 
         if (it1 != intValues.end()) {
             std::cout << "Found a value: " << *it1 << std::endl;
+        
+            it1++;
+        
+            auto it12{ std::find_if(
+                it1,
+                intValues.end(),
+                isGreaterThanFifty<int>
+            ) };
         }
 
         std::vector<double> doubleValues{ 24.5, 75.5, 12.5, 87.5, 12.5 };

@@ -594,7 +594,9 @@ namespace Algorithms {
             auto itTarget{ target.begin() };
 
             for (auto it{ source.begin() }; it != source.end(); ++it) {
-                *itTarget = *itSource;
+                // *itTarget = *itSource;
+                *itTarget = *it;
+                ++itTarget;
             }
         }
 
@@ -918,15 +920,15 @@ void main_algorithms()
 
     // initialization of std::vector or std::array with a constant value
    // Algorithms::Initialization_Vector_Constant_Value::test_vector_constant_initialization();
-    Algorithms::Initialization_Array_Constant_Value::test_array_constant_initialization();
+   // Algorithms::Initialization_Array_Constant_Value::test_array_constant_initialization();
 
     // initialization of std::vector or std::array with a a varying value
     // Algorithms::Initialization_Vector_Varying_Value::test_vector_varying_initialization();
     // Algorithms::Initialization_Array_Varying_Value::test_array_varying_initialization();
 
     // using algorithms for copying ranges (std::vector or std::array)
-   //  Algorithms::Copying_Vectors::test_vector_copying();
-    //  Algorithms::Copying_Arrays::test_array_copying();
+     Algorithms::Copying_Vectors::test_vector_copying();
+    // Algorithms::Copying_Arrays::test_array_copying();
 
     // using algorithms for elementary calculations (std::vector or std::array)
    //  Algorithms::Elementary_Calculations_With_Vectors::test_vector_sum_calculation();
