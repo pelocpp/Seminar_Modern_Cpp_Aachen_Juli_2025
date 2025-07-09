@@ -64,7 +64,11 @@ namespace PerfectForwarding {
 
     static void test_example()
     {
-        std::string s{ "DEF" };
+        std::string s{ "DEFFFFFFFFFFFFFFFFFFFF" };
+
+        s = "123";
+
+        std::string s2 = s + "123";
 
         foo(std::string{ "ABC" }, s);
     }

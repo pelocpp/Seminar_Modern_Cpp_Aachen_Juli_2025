@@ -583,4 +583,86 @@ Universal Referenz:
 
 ================================================
 
+Zeichenkette:
 
+"11111111111111111111111111111111111111"
+
+
+std::string s = "11111111111111111111111111111111111111";
+
+const char* s = "11111111111111111111111111111111111111";
+
+Im statischen Speicher 
+
+Code-Segment.
+
+Wo liegt "11111111..." NICHT: Im Heap
+
+Optimierung:
+
+std::string s = "11111111111111111111111111111111111111";
+
+Von C nach C++:
+
+no more strcpy, .................
+
+std::string: Performance Penalty: HEAP
+
+Performanz:
+
+const char* s = "11111111111111111111111111111111111111";
+
+Fehlt: Länge
+
+==>
+
+std::string_view:
+
+2 Daten:
+
+a) const char*  = Anfangsadresse 
+b) size_t       = Länge
+
+Wenn nicht wirklich mit Zeichenketten
+gearbeitet werden soll:
+
+Go for std::string_view
+
+Achtung mit den Adressen, die ein
+std::string_view Objekt verwaltet:
+
+a) diese müssen GÜLTIG sein !!!!
+
+Formulierung: 
+
+Ein std::string_view Objekt ist ein NON-Owning Object.
+
+==============================================
+
+Frage:
+
+Arrays:
+
+C-Style Array's:     int numbers[10];
+
+                     int n = 20;
+                     numbers[n] = 123;
+
+Klasse std::array
+
+Gibt es bei "grober" Betrachtung einen Unterschied: NEIN
+
+Fixed-Size Arrays:   std::array<int, 10> numbers;
+
+
+===> std::array hat Vorteile.
+
+a) Kennt die Länge.
+
+
+b) Überprüft den Index:
+
+ int n = 20;
+ numbers[n] = 123;  // hier NICHT !!!
+
+ numbers.at(n) = 123;

@@ -4,6 +4,17 @@
 
 module modern_cpp:sso;
 
+
+void test_zeichenkette()
+{
+    const char* cp = "11111111111111111111111111";
+
+    // cp[0] = '!';
+
+   // printf("%s", cp);
+}
+
+
 void main_sso()
 {
     auto size{ sizeof(std::string) };

@@ -12,7 +12,7 @@ namespace StdArray {
     static void test_01() {
 
         // initialization variants
-        [[maybe_unused]] std::array<int, 5> array1;
+        std::array<int, 5> array1;
 
         std::array<int, 5> array2{};
 
@@ -20,7 +20,12 @@ namespace StdArray {
 
         std::array<int, 5> array4 = { 1, 2, 3, 4, 5 };  // initializer list
 
-        std::array array5 = { 1, 2, 3, 4, 5 };          // CTAD - type is deduced to std::array<int, 5>
+        std::array array5 = { 1, 2, 3, 4, 5 };  
+
+        std::vector vec = { 1, 2, 3, 4, 5 };
+
+        // class template argument deduction
+        // CTAD - type is deduced to std::array<int, 5>
     }
 
     // -------------------------------------------------------------------
@@ -209,7 +214,7 @@ namespace StdArray {
         // copying via operator= isn't supported:
         // array type 'std::string [4]' is not assignable
         std::string other[4];
-        // other = cArray;  
+        //other = cArray;  
 
         // algorithm std::copy works
         std::copy(
@@ -368,14 +373,26 @@ namespace StdArray {
         //std::vector<int> vec{ 1, 3, 5, 7, 9 };
         //printArray(vec);
 
-        int carr[]{ 1, 2, 3, 4, 5 };
-        printArray(std::span{ carr });
+        //int carr[]{ 1, 2, 3, 4, 5 };
+        //printArray(std::span{ carr });
 
-        std::array arr{ 6, 7, 8, 9, 10 };
-        printArray(std::span{ arr });
+        //std::array arr{ 6, 7, 8, 9, 10 };
+        //printArray(std::span{ arr });
 
-        std::vector vec{ 1, 3, 5, 7, 9 };
-        printArray(std::span{ vec });
+        std::vector<int> vec;
+        vec.reserve(10);
+
+        vec.push_back(1);
+        vec.push_back(2);
+        vec.push_back(3);
+
+        std::span sp { vec };
+
+        printArray(sp);
+
+        vec.push_back(4);
+
+        printArray(sp);
     }
 
     // --------------------------------------------------------------------

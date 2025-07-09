@@ -24,7 +24,7 @@ int main()
         //main_allocator();
         //main_any();
         //main_argument_dependent_name_lookup();
-        //main_array();
+        main_array();
         //main_array_decay();
         //main_attributes();
      //   main_auto();
@@ -68,7 +68,7 @@ int main()
         //main_modules();
         //main_move_semantics();
         //main_optional();
-        main_perfect_forwarding();
+    //    main_perfect_forwarding();
         //main_placement_new();
         //main_println();
         //main_raii();
@@ -81,9 +81,9 @@ int main()
         //main_sfinae();
        // main_shared_ptr();
         //main_source_location();
-        //main_sso();
+     //   main_sso();
         //main_static_assert();
-        //main_string_view();
+      //  main_string_view();
        // main_structured_binding();
         //main_templates_class_basics_01();
         //main_templates_class_basics_02();

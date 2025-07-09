@@ -2,6 +2,10 @@
 // StringView.cpp // Klasse std::string_view
 // =====================================================================================
 
+module;
+
+#include <string_view>
+
 module modern_cpp:string_view;
 
 namespace StringViewDemonstration {
@@ -13,6 +17,7 @@ namespace StringViewDemonstration {
         std::string s{ "AAAAAAAAAAAAAAAAAAAAAAAAAAAA" };        //  Heap
 
         // sv[0] = '?';   // error
+        
         char ch{ sv[0] };
     }
 
@@ -24,7 +29,11 @@ namespace StringViewDemonstration {
 
         std::println("{}", sv);
 
-        s += "BBBBBBBBBBBBBBBBBBBBBBBBBBBB";        // Caution: the content of s is reallocated !
+      //  s += "BBBBBBBBBBBBBBBBBBBBBBBBBBBB"; 
+       
+        s[0] = '!';
+
+        s += "BB";
 
         std::println("{}", sv);
     }
