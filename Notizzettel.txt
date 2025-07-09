@@ -55,11 +55,7 @@ ToDo_Liste:
 
 2) noexcept
 
-3) emplace
-
-4)
-
-
+3) requires
 
 ======================================
 
@@ -666,3 +662,139 @@ b) Überprüft den Index:
  numbers[n] = 123;  // hier NICHT !!!
 
  numbers.at(n) = 123;
+
+=======================================
+
+std::variant: Container für unterschiedliche Daten.
+
+std::any:     Container für unterschiedliche Daten.
+
+=======================================
+
+std::optional
+
+int value;
+
+std::string value;
+
+...
+
+// habe ich einen Wert ???
+
+if (value == 0) ...
+
+if (value == -1) ...
+
+if (value == "") ...
+
+Optimale Lösung:
+
+int  value;
+bool flag;    // true / false
+
+std::optional<int>
+
+=================================================
+
+Folding:
+=======
+
+Ziel:
+
+Wiederholte Anwendung eines Operators:
+
+int sum = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10;
+
+std::string_builder //  std::stringstream 
+
+auto result = std::string{"1"} + "2" + "3" + "4" + "5";
+
+auto result = mat1 + mat2 + mat3;
+
+
+Umsetzung: Whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+
+Folding:
+--------
+
+a) Wiederholte Anwendung eines Operators
+
+b) Wiederholte Ausführung eines Ausdrucks   // Sequenz
+
+Fazit:
+
+Folding für schnelle arith. Ausdrücke mit EINEM Operator.
+
+=====================================================
+
+Das Parameter Pack:
+====================
+
+== einpacken, auspacken
+
+Ein Parameter Pack ist eine komma getrennte Liste.
+
+Beim Einpacken:  zB sieht man das bei einem Aufruf einer Funktion.
+
+
+Auspacken:
+
+zB beim Weiterleiten: my_make_unique ==> Konstr. Aufruf
+
+zB in einer std::initializer_list
+
+======================================================
+
+Schnittstellen:
+
+A la C#
+
+interface IEnumerable
+{
+    abstract bool hasNext();
+    abstract void moveNext();
+    abstract void reset();
+    abstract Object getValue();
+}
+
+A la C++:
+
+class IEnumerable
+{
+    virtual bool hasNext() = 0;
+    virtual void moveNext() = 0;
+    virtual void reset() = 0;
+    virtual Object getValue() = 0;
+}
+
+Oder:
+
+class IntegerIterable
+{
+public:
+    virtual bool hasNext() const = 0;
+    virtual int  next() = 0;
+    virtual void reset() = 0;
+};
+
+C++20 and Beyond:  Konzept für IEnumerable.
+
+template <typename T>
+concept IsIterable = requires (T v, bool b)
+{
+    { std::as_const(v).hasNext() } -> std::convertible_to<bool>;
+    { v.next() } -> std::same_as<int>;
+    { v.reset(b) }-> std::convertible_to<void>;
+};
+
+====================================================
+
+== KLeinigkeiten
+
+== All-In: Polymorphismus: 
+
+== MT
+
+== Fading out ...
+
+

@@ -10,7 +10,8 @@ concept Numerical = std::integral<T> || std::floating_point<T>;
 
 // using <type_traits>
 template <typename T>
-concept NumericalEx = std::is_integral<T>::value || std::is_floating_point<T>::value;
+concept NumericalEx = 
+    std::is_integral<T>::value || std::is_floating_point<T>::value;
 
 namespace Requires_Clause {
 
@@ -18,7 +19,7 @@ namespace Requires_Clause {
         requires Numerical<T>
     auto add(T a, T b)
     {
-        return a + b;
+        return a + b;  // Theoretisch: std::string
     }
 
     // "inlining" constraints on template parameter types
@@ -216,9 +217,9 @@ namespace UserDefined_Concept {
 
         n = incrementByOne(n);
 
-        // short s{ 1 };
+        short s{ 1 };
         // the associated constraints are not satisfied:
-        // s = incrementByOne(s);
+        //s = incrementByOne(s);
 
         n = incrementByTwo(n);
 
@@ -228,7 +229,7 @@ namespace UserDefined_Concept {
     }
 }
 
-void main_concepts_requires_functions()
+void main_concepts_requires_functions() 
 {
     Requires_Clause::test_concepts_requires_basic_usage();
     Trailing_Requires_Clause::test_trailing_requires_clause();

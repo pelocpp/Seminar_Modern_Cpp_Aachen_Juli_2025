@@ -8,6 +8,103 @@ module;
 
 module modern_cpp:folding;
 
+namespace Folding_Seminar {
+
+   // int sum = ((1 + 2) + 3) + 4 + 5 + 6 + 7 + 8 + 9 + 10;
+
+    template <typename ... TArgs>
+    
+        // (... op pack)
+        requires (... && std::is_same<TArgs, int>::value   )
+    
+    auto addierer_folding(TArgs ... args)
+    {
+        // folding expression
+        auto result = ( ...  + args) ;
+        return result;
+    }
+
+
+    // Unser Addierer soll nur int Werte addieren können
+
+    //auto addierer_folding(auto ... args)
+    //{
+    //    return ( ...  + args) ;
+    //}
+
+    auto addierer_iterating(auto ... args)
+    {
+        auto list = { args ... };
+
+        using ElemType = decltype (list)::value_type;
+
+       // decltype (*list.begin()) result{};
+        ElemType result{};
+
+        for ( auto n  : list ) {
+            result += n;
+        }
+
+        return result;
+    }
+
+    void test_folding() {
+
+        auto result1 = addierer_folding( 1, 2, 3, 4, 5 );
+        auto result2 = addierer_iterating(1.5, 2.5, 3.5, 4.5, 5.5);
+    
+       // auto result3 = addierer_folding(1.5, 2.5, 3.5, 4.5, 5.5);
+    }
+
+
+    auto subtrahierer(auto ... args)
+    {
+        // 1 - (2 - 3) = 2
+        // (1 - 2) - 3 = -4
+        return (args - ...);
+    }
+
+    void printer(auto first, auto ... args)
+    {
+        // 1, 2, 3, 4, 5
+        // ((std::cout << 1) << 2) << 3 << 4
+
+       // (std::cout << ... << args << ", ");  NO
+
+        std::cout << first;
+
+        ( ...  ,   (std::cout << " , " << args ) );
+
+        std::cout << std::endl;
+    }
+
+    void test_folding_alt() {
+
+       // auto result = subtrahierer(1, 2, 3);
+
+       printer('!',1, 2, 3, "ABC", 123.345, '.');
+
+        //{
+        //    int a;
+        //    int b;
+        //    int c;
+
+        //    a = 1;
+        //    b = 2;
+
+        //    a = 1, b = 2;
+
+        //    c = (a = 1, b = 2);  // Dennis Ritchie
+
+        //    std::cout << "stopper";
+        //}
+    }
+
+}
+
+
+
+
 namespace Folding {
 
     /* folding examples: introduction
@@ -135,14 +232,20 @@ namespace Folding {
 
     // Performance Comparison
     static auto addFolding(auto ... values) {
-        return (... + values);
+
+        volatile auto sum{ (... + values) };
+
+        return sum;
     }
 
     static auto addIterating(auto ... values) {
-        
-        auto list = { values ...};
 
-        auto sum{ 0 };
+        auto list = { values ... };
+
+        volatile auto sum{ 0 };
+
+        // wenn ich eine Optimierung verhindern möchte
+
         for (auto elem : list) {
             sum += elem;
         }
@@ -200,17 +303,23 @@ namespace Folding {
     }
 }
 
+
+
 void main_folding()
 {
+    //Folding_Seminar::test_folding();
+    //return;
+
     using namespace Folding;
-    test_01();
-    test_02();
-    test_03a();
-    test_03b();
-    test_03c();
-    test_03d();
-    test_04();
-    test_05();
+
+    //test_01();
+    //test_02();
+    //test_03a();
+    //test_03b();
+    //test_03c();
+    //test_03d();
+    //test_04();
+    //test_05();
     
     // Benchmarks: need to switch to nano seconds! 
     // Optimizer in Release mode is very aggressive
