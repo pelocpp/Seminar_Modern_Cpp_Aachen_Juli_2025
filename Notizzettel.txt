@@ -51,11 +51,13 @@ Speicher:
 ToDo_Liste:
 -----------
 
-b) Werden die Elemente in diesem Zusammenhang kopiert oder verschoben ???
+1) Werden die Elemente in diesem Zusammenhang kopiert oder verschoben ???
 
-C) noexcept
+2) noexcept
 
-D) emplace
+3) emplace
+
+4)
 
 
 
@@ -543,4 +545,42 @@ Java, C#: Sehr stark ausgeprägt.
 C++: Für Arme
 
 C++ 26: Die große Überarbeitung.
+
+========================================
+
+Variadische Templates:
+
+a) verstehen / kennen lernen / lesen können
+
+b) anwenden
+
+Beobachtung:
+
+Pro Funktion mit unterschiedlichen Parametern
+muss im Maschinencode eine passende Funktion 
+vorhanden sein.
+
+Whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+
+==> Transport von Daten von A nach B
+    ( beliebig viele, beliebigen Datentyps )
+
+// ===============================================
+
+Transport der Daten von A nach B.
+
+Schlecht: Als Kopie.
+
+Gut: Als Referenz // Problem mit RValues.
+
+             Problem mit Konstanten, tmp. Objekten,
+             mit allem, was keinen Namen hat.
+
+Universal Referenz:
+===================
+
+==>  Perfekte Weiterleiten // Transportieren
+
+================================================
+
 

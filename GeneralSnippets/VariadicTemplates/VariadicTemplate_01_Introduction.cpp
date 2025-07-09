@@ -4,6 +4,146 @@
 
 module modern_cpp:variadic_templates;
 
+namespace VariadicTemplatesIntro {
+
+    //// C++ 11
+    //template <typename T>
+    //void printer(T n) {
+    //    std::cout << n << std::endl;
+    //}
+
+    //template <typename T, typename ... U>  // einpacken
+    //void printer(T n, U ... m) {           // einpacken
+    //    std::cout << n << std::endl;
+    //    printer(m ...);
+    //}
+
+    // C++ 20 generic functions
+    //void printer(auto n) {
+    //    std::cout << n << std::endl;
+    //}
+
+    //void printer(auto n, auto ... m) {           // einpacken
+    //    std::cout << n << std::endl;
+    //    printer(m ...);
+    //}
+
+    //// C++ 17
+    //template <typename T, typename ... U>  // einpacken
+    //
+    //void printer(T n, U ... m) {           // einpacken
+    //    std::cout << n << std::endl;
+
+    //    if constexpr ( sizeof...  (m) > 0 ) {
+    //        printer(m ...);
+    //    }
+    //}
+    
+    // C++ 20
+    void printer(auto n, auto ... m) {           // einpacken
+        std::cout << n << std::endl;
+
+        if constexpr (sizeof...  (m) > 0) {
+            printer(m ...);
+        }
+    }
+    
+    void test_var_templates_01 () {
+
+        // TPD - Template Parameter Deduction
+        printer<int, int, int, int, int>(1, 2, 3, 4, 5);
+    }
+
+
+    class Unknown {
+    private:
+        int m_var1;
+        int m_var2;
+        int m_var3;
+
+    public:
+        Unknown() : m_var1{ -1 }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor()" << std::endl;
+        }
+
+        Unknown(int n) : m_var1{ n }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor(int)" << std::endl;
+        }
+
+        Unknown(int n, int m) : m_var1{ n }, m_var2{ m }, m_var3{ -1 } {
+            std::cout << "c'tor(int, int)" << std::endl;
+        }
+
+        Unknown(int n, int m, int k) : m_var1{ n }, m_var2{ m }, m_var3{ k } {
+            std::cout << "c'tor(int, int, int)" << std::endl;
+        }
+
+        friend std::ostream& operator<< (std::ostream&, const Unknown&);
+    };
+
+    std::ostream& operator<< (std::ostream& os, const Unknown& obj) {
+        os
+            << "var1: " << obj.m_var1
+            << ", var2: " << obj.m_var2
+            << ", var3: " << obj.m_var3;
+
+        return os;
+    }
+
+    template <typename T, typename ... TArgs>
+    std::unique_ptr<T> my_make_unique(TArgs&& ... args)
+    {
+        auto ptr = std::unique_ptr<T>(new T{ std::forward<TArgs>(args) ... });
+        // return std::move(ptr);  // RVO
+        return ptr;
+    }
+
+    //template <typename T, typename ... TArgs>
+    //std::unique_ptr<T> my_make_unique( TArgs ... args)
+    //{
+    //    auto ptr = std::unique_ptr<T>(new T{ args ... });
+    //    // return std::move(ptr);  // RVO
+    //    return ptr;
+    //}
+
+    //  C++  11
+    //template <typename T, typename ... TArgs>
+    //std::unique_ptr<T> my_make_unique( TArgs ... args)
+    //{
+    //    auto ptr = std::unique_ptr<T>( new T { args ...});
+    //   // return std::move(ptr);  // RVO
+    //    return ptr;
+    //}
+
+    //template <typename T>
+    //std::unique_ptr<T> my_make_unique(auto ... args)
+    //{
+    //    auto ptr = std::unique_ptr<T>(new T{ args ... });
+    //    return ptr;
+    //}
+
+    void test_var_templates() {
+
+        // Smart Pointer
+        //std::unique_ptr<Unknown> ptr 
+        //     = std::make_unique<Unknown>(1, 2, 3);
+
+    
+        std::unique_ptr<Unknown> ptr 
+          = my_make_unique<Unknown>( 10, 11, 12 );
+    }
+
+    void test_var_templates_03() {
+
+        std::vector<Unknown> vec;
+
+        vec.push_back(Unknown (1, 2, 3));
+
+        // C++ 11
+        vec.emplace_back(1, 2, 3);   // push_back
+    }
+}
+
 namespace VariadicTemplatesIntro_01 {
 
     // ====================================================================
@@ -350,8 +490,12 @@ namespace VariadicTemplatesIntro_06 {
     }
 }
 
+
 void main_variadic_templates_introduction()
 {
+    VariadicTemplatesIntro::test_var_templates();
+    return;
+
     VariadicTemplatesIntro_01::test_printer_01();
 
     VariadicTemplatesIntro_02::test_my_make_unique();

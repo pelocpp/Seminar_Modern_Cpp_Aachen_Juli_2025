@@ -55,7 +55,7 @@ namespace PerfectForwarding {
 
         // T obj1 = std::forward<T>(arg1);
         // vs
-        T obj1 = arg1;
+        T obj1 = std::forward<T>(arg1);
         std::println("[{}]", arg1);
 
         T obj2 = std::forward<U>(arg2);
@@ -70,7 +70,7 @@ namespace PerfectForwarding {
     }
 }
 
-void main_perfect_forwarding()
+void main_perfect_forwarding() 
 {
     using namespace PerfectForwarding;
     test_forwarding();
