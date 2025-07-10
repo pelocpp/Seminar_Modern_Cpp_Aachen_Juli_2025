@@ -229,7 +229,7 @@ namespace BookStoreUsingDynamicPolymorphism {
 
     struct IMedia
     {
-        virtual ~IMedia() = default;
+        virtual ~IMedia() {}
 
         virtual double getPrice() const = 0;
         virtual size_t getCount() const = 0;
@@ -331,7 +331,7 @@ namespace BookStoreUsingDynamicPolymorphism {
         std::shared_ptr<IMedia> movieTarantino{ std::make_shared<Movie>("Once upon a time in Hollywood", "Quentin Tarantino", 6.99, 3) };
         std::shared_ptr<IMedia> movieBond{ std::make_shared<Movie>("Spectre", "Sam Mendes", 8.99, 6) };
 
-        Bookstore bookstore{
+        Bookstore bookstore {
             cBook, movieBond, javaBook, cppBook, csharpBook, movieTarantino
         };
 
@@ -448,7 +448,7 @@ namespace BookStoreUsingTypeErasure {
     };
 
     template<typename T>
-    concept MediaConcept = requires (const T & m)
+    concept MediaConcept = requires (const T& m)
     {
         { m.getPrice() } -> std::same_as<double>;
         { m.getCount() } -> std::same_as<size_t>;
@@ -472,14 +472,18 @@ namespace BookStoreUsingTypeErasure {
         template <typename T>
             requires MediaConcept<T>
         void addMedia(const T& media) {
-            // m_stock.push_back(StockType{ media });  // detailed notation
-            m_stock.push_back(media);                  // implicit type conversion (T => std::variant<T>)
+           // m_stock.push_back(StockType{ media });  // detailed notation
+            m_stock.push_back(media);                  // implicit type conversion (T => std::variant<TArgs>)
         }
 
         // or
         void addMediaEx(const MediaConcept auto& media) {
             m_stock.push_back(media);
         }
+
+
+
+
 
         // public interface
         double totalBalance() const {
@@ -536,7 +540,7 @@ namespace BookStoreUsingTypeErasure {
             for (const auto& media : m_stock) {
 
                 total += std::visit(
-                    [](const auto& element) {
+                    [](const auto& element) -> double {
                         double price = element.getPrice();
                         size_t count = element.getCount();
                         return price * count;
@@ -667,9 +671,9 @@ namespace BookStoreUsingTypeErasure {
 
 void main_type_erasure()
 {
-    using namespace TypeErasureUsingDynamicPolymorphism;
-    using namespace TypeErasureUsingTemplateTechniques;
-    using namespace TypeErasureUsingTemplateTechniquesAndConcepts;
+    //using namespace TypeErasureUsingDynamicPolymorphism;
+    //using namespace TypeErasureUsingTemplateTechniques;
+    //using namespace TypeErasureUsingTemplateTechniquesAndConcepts;
     using namespace BookStoreUsingDynamicPolymorphism;
     using namespace BookStoreUsingTypeErasure;
 

@@ -4,6 +4,13 @@ Modern C++
 
 Peter Loos
 
+peter.loos@gmx.de
+-----------------
+
+https://peterloos.de/
+
+https://github.com/pelocpp
+
 Pascal, C/C++, Java, C#, JavaScript (Python) 
 
 Guten Morgen
@@ -50,12 +57,6 @@ Speicher:
 
 ToDo_Liste:
 -----------
-
-1) Werden die Elemente in diesem Zusammenhang kopiert oder verschoben ???
-
-2) noexcept
-
-3) requires
 
 ======================================
 
@@ -791,12 +792,298 @@ concept IsIterable = requires (T v, bool b)
 
 == Verabschiedung
 
-== KLeinigkeiten
+== Kleinigkeiten
 
-== All-In: Polymorphismus: 
+   -- ToDo Liste
+   -- std::println
+
+== All-In: Polymorphismus 
 
 == MT
 
 == Fading out ...
+
+====================================================
+
+
+new - Operator:
+
+// Scalar new
+int* ptr = new int();
+BigData* ptr = new BigData;
+
+// Array new
+int* ptr = new int [100]
+BigData* ptr = new BigData[100];
+
+
+delete ptr;    // Scalar new
+delete[] ptr;  // Array new   UB
+
+==> std::malloc
+
+=============================================
+
+No-throw-Garantie:   noexcept
+
+=> Alle Arten von Methoden,
+   die nur aus Wertzuweisungen bestehen.
+
+
+Ausnahmen werden gefangen (try-catch)
+
+Ansonsten:
+An die rufende Methoden durchgeschleust.
+
+===> Stack Unwinding.
+
+noexcept  ===> KEINE "Stack Unwinding" Anweisungen.
+
+
+
+Hmmm, bei jedem getter ????
+
+int Size () { return m_size; }
+
+=======================================
+
+Polymorphmismus:
+
+virtual
+
+virtuelle Methoden // Vererbung // interfaces.
+
+Vererbung
+
+== Rectangle
+== ColoredRectangle
+
+Hint: Satz:  
+
+Ein ColoredRectangle ist ein Rectangle.
+
+Beziehung : Relationship:
+
+ist-ein Beziehung // is-a Relationship.
+
+== class Line
+== class Point
+
+Eine Linie hat Punkte.
+
+hat-ein
+hat-mehrere
+
+has-a Relationship: Umsetzung
+
+class Line
+{
+    Point m_begin;
+    Point m_end;
+}
+
+// ================================================
+
+Container:
+
+Container sind homogen in C++
+-----------------------------
+
+std::vector <int>
+
+Container sind heterogen in C#, Java
+
+C#:
+
+class Rectangle  // C#
+
+C#:  ArrayList // Vector von Object: 
+
+int ==> Boxing (Wrapping) 
+
+C++:  Heterogene Container ....
+
+Man packt alles in std::any
+
+Man packt alles in std::variant // ==> besuchen
+
+// =========================================================
+
+Vorbereitungen:
+
+Gegenüberstellung:
+
+Buchhandlung:
+
+Polymorphismus:
+
+===>  "Type Erasure"
+
+std::any
+std::variant
+std::function
+
+== virtual
+== non - virtual
+
+Dynamischer versus statischer Polymorphismus:
+
+
+// =========================================================
+
+
+Multithreading:
+-------------------
+
+Bibliothek  => STL
+
+"Kleinste gemeinsame Nenner":   Anfänglich: Durchaus ja // C++ 11
+
+Ab C++ 20 :  Die Unterstützung wird immer größer
+
+// =========================================================
+
+
+int m_counter;
+
+a) belege m_counter mit 0 vor
+
+b) Zähle m_counter  eine Million mal hoch
+
+c) Zähle m_counter  eine Million mal runter.
+
+d) Welchen Wert hat m_counter  ?
+
+
+
+                ++m_counter;
+00007FF7868B2A83  mov         rax,qword ptr [this]     // Lesen
+00007FF7868B2A8A  mov         eax,dword ptr [rax]  
+
+00007FF7868B2A8C  inc         eax                       // Akkumulator  // 1000
+
+(( Runterzähler: 999 => 998 => 997  => 996  ))
+
+=====> Thread Wechsel:   Interrupt 
+              a) Alle Register müssen gerettet werden
+              b) auf den Stack. // eigenen Stackbereich
+              c) suspend // resume
+              d) Die Register  müssen wieder hergestellt werden.
+              e) EAX wird mit 1000 restauriert.
+
+00007FF7868B2A8E  mov         rcx,qword ptr [this]    // Schreiben
+00007FF7868B2A95  mov         dword ptr [rcx],eax  
+
+
+
+Wunsch:  5 OpCodes:  atomar.  // nicht unterbrechbar.
+
+
+
+
+Priorität eines Threads ändern:   (Peter Loos) Das tun wir nicht !!!
+
+Thread t1:    Prio höher (50)
+
+Thread t2:   Prio niedriger (30)
+
+Wer läuft // wer läuft nicht ???
+
+
+=========================
+
+RAII
+
+https://github.com/pelocpp/cpp_design_patterns/blob/master/Patterns/RAII_Idiom/Resources/Readme.md
+
+
+C++:
+
+Konstruktoren
+Destruktoren     => Werden am Ende des Scopes aufgerufen: Deterministisch.
+
+Idee:     std::mutex
+
+Konstruktoren:   lock()
+Destruktoren :   unlock()
+
+===============================================
+
+std::jthread:  C++ 20
+
+j:   Joinable
+
+Josuttis Nicolai
+
+All-In:
+
+joinable - Zustand
+
+
+================================================
+
+Realisierung einer Ereigniswarteschlange (Event Loop )
+--------------------------------------------------------------------------
+
+a) Man wartet auf Ereignisse
+
+b) Man hat eine Liste von Ereignissen, die abzuarbeiten sind.
+
+c) ==> Ereignis:  Sofort bearbeiten.  Die Bearbeitung dauert sehr lange.
+
+
+    ===> Die Bearbeitung dauert sehr lange:  Die Bearbeitung in einen Thread auslagern.
+
+
+d) Was könnte gegen das auslagern in einen Thread sprechen: 
+
+    Ich habe eine bestimmte Reihenfolge zu beachten.
+
+================================================
+
+Was könnte ein Ereignis sein .. aus der Sicht von C++:
+
+a) Daten
+
+b) Daten + Funktion
+
+std::queue
+
+
+    using Event = std::function<void()>;
+
+Lambdas ==> Nicht mit std::function gehandelt werden, weil langsamer.
+
+void() ==> keine Parameter, kein Ergebnis:  Abwarten.
+
+Parameter: doch
+Rückgabewert: Nein.
+
+std::vector<std::function<void()>>        m_events;
+
+
+==================================================
+End-of-File
+
+==================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
